@@ -1,0 +1,12 @@
+node neck.js 
+
+base camera level:
+  turn left 60                 right   -6.9  forward   -4.0  up    0.0 cm
+  turn right 60                right    6.9  forward   -4.0  up    0.0 cm
+  turn left 135 (look behind)  right   -5.7  forward  -13.7  up    0.0 cm
+  look down 30                 right    0.0  forward    2.7  up   -5.0 cm
+  look up 30                   right    0.0  forward   -4.8  up    3.0 cm
+  tilt (roll) 20               right    2.6  forward    0.0  up   -0.5 cm
+base camera pitched 10 down (parent-frame result; turning should stay horizontal):
+  turn left 60                 right   -8.0  forward   -4.6  up    0.0 cm
+  turn right 60                right    8.0  forward   -4.6  up    0.0 cm

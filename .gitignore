@@ -1,0 +1,12 @@
+# Build output and the RED4ext SDK checkout (see README, Building)
+/build/
+/out/
+/deps/
+.vs/
+CMakeUserPresets.json
+*.user
+
+# Files the mod writes in the game's CET folder, in case they get copied back
+cet/TobiiHeadTracking/settings.json
+cet/TobiiHeadTracking/*.log
+cet/TobiiHeadTracking/db.sqlite3

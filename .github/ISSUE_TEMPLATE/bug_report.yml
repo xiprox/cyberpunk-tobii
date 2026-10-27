@@ -1,0 +1,40 @@
+name: Bug report
+description: Something in the mod doesn't work as it should.
+labels: [bug]
+body:
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version
+      placeholder: "2.5"
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Mod version
+      description: The Head Tracking window in the Cyber Engine Tweaks overlay shows it beside the tracker status.
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: input
+    id: tracker
+    attributes:
+      label: Tracker
+      placeholder: Tobii Eye Tracker 5
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: >-
+        Drag in two files from the game folder: the TobiiHeadTracking log from `red4ext\logs`,
+        and `bin\x64\plugins\cyber_engine_tweaks\scripting.log`.

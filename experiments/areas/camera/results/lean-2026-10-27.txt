@@ -1,0 +1,8 @@
+node lean.js 
+
+lean forward 10 cm, looking right 90:   toward screen   right    0.0  forward   10.0  up    0.0 cm
+                                        follow turning  right   10.0  forward    0.0  up    0.0 cm
+lean left 10 cm, looking right 90:      follow turning  right   -0.0  forward   10.0  up    0.0 cm
+lean forward, looking right 45 + down 30: turning only  right    7.1  forward    7.1  up    0.0 cm
+                                        turning + pitch right    6.1  forward    6.1  up   -5.0 cm
+game camera pitched 10 down, lean forward, look right 90 (should stay level): right   10.0  forward    0.0  up   -0.0 cm

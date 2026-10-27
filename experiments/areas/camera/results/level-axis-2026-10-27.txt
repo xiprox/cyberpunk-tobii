@@ -1,0 +1,8 @@
+node level-axis.js 
+
+tilt outside local, head held 90 left          roll before turning   0.00 | after: old  -12.00  new   0.000  worst 0.000
+tilt in local orientation, head held 90 left   roll before turning   0.00 | after: old  -12.00  new   0.000  worst 0.000
+tilt outside local, fast sweeps + nods         roll before turning   0.00 | after: old   11.22  new  -0.000  worst 0.000
+same, camera report one frame late             roll before turning   0.00 | after: old   11.22  new   0.146  worst 0.947
+horizon mode, held 90 left                     roll before turning   5.40 | after: old   -7.18  new   5.397  worst 5.397
+no tilt at all (should match old)              roll before turning  -0.00 | after: old    0.00  new   0.000  worst 0.000

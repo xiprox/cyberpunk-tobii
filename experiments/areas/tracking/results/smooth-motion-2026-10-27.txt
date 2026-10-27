@@ -1,0 +1,16 @@
+node smooth-motion.js results/head-pose-2026-10-26-turns.csv
+
+setup                                         lag   jank (deg/s2)   still (deg/s)   overshoot (deg)
+installed: no One Euro, linear, settle 0.8    19 ms      772          1.09          0.23
+earlier: OE 0.4/0.4, linear                   33 ms      483          1.14          0.09
+old defaults: OE 1.0/0.05, linear             65 ms      290          1.02          0.01
+OE 0.5/0.1, linear                            54 ms      340          0.98          0.00
+OE 1.0/0.1, linear                            52 ms      351          1.05          0.03
+no OE, curved                                 19 ms      963          1.40          0.36
+OE 0.4/0.4, curved                            33 ms      577          1.14          0.10
+OE 1.0/0.2, curved                            41 ms      487          1.11          0.08
+OE 1.0/0.1, curved                            52 ms      404          1.06          0.03
+no OE, linear, frame low-pass 25 ms           37 ms      431          1.31          0.26
+no OE, curved, frame low-pass 15 ms           27 ms      678          1.36          0.32
+no OE, curved, frame low-pass 25 ms           37 ms      512          1.32          0.28
+OE 0.4/0.4, curved, frame low-pass 15 ms      41 ms      430          1.14          0.08

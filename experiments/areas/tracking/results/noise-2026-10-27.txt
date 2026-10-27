@@ -1,0 +1,10 @@
+node noise.js results/head-pose-2026-10-26-first.csv 0.4 0.4
+
+smoothing minCutoff 0.4 beta 0.4; 262 quiet 1.5 s windows
+peak-to-peak while still (deg / cm):   median    90th pct
+  yaw                              0.36       1.87
+  pitch                            0.53       2.15
+  roll                             0.35       0.98
+  x                                0.08       0.33
+  y                                0.02       0.28
+  z                                0.11       0.45
