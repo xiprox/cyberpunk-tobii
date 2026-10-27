@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/xiprox/cyberpunk-tobii/compare/v1.1.1...v1.1.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* headings and bullets in the Nexus Mods changelog ([d15d83f](https://github.com/xiprox/cyberpunk-tobii/commit/d15d83fe14f7fc19d2cb79929631aa91ee087a77))
+
 ## [1.1.1](https://github.com/xiprox/cyberpunk-tobii/compare/v1.1.0...v1.1.1) (2026-10-27)
 
 
