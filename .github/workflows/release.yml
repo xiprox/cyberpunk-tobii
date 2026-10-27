@@ -66,13 +66,17 @@ jobs:
         env:
           BODY: ${{ needs.release-please.outputs.body }}
         run: |
-          # Nexus shows Markdown as typed, so drop the version heading, the commit links such as
-          # " ([1a2b3c4](https://...))", the bold around scopes, the ### before section names, and
-          # the run of blank lines release-please leaves between sections.
-          $notes = $env:BODY -replace '(?m)^## .*$', '' -replace ' \(\[[^\]]+\]\([^)]+\)\)', '' -replace '\*\*', '' -replace '(?m)^### ', ''
-          $notes = $notes -replace '(\r?\n){3,}', "`n`n"
+          # Nexus takes one entry per line and shows Markdown as typed, so keep only the list items,
+          # without the "* ", the scope such as "**settings:** ", or the links such as
+          # " ([1a2b3c4](https://...))". A breaking change is listed twice, under its own heading and
+          # its type's, so it's kept once.
+          $entries = $env:BODY -split '\r?\n' | Where-Object { $_ -match '^\* ' } | ForEach-Object {
+            $entry = $_ -replace '^\* (\*\*[^*]+:\*\* )?', '' -replace ' \(\[[^\]]+\]\([^)]+\)\)', ''
+            $entry.Substring(0, 1).ToUpper() + $entry.Substring(1)
+          }
+          $notes = ($entries | Select-Object -Unique) -join "`n"
           $delimiter = "EOF$([guid]::NewGuid().ToString('N'))"
-          "changelog<<$delimiter", $notes.Trim(), $delimiter | Out-File -Append -FilePath $env:GITHUB_OUTPUT
+          "changelog<<$delimiter", $notes, $delimiter | Out-File -Append -FilePath $env:GITHUB_OUTPUT
 
       - name: Upload to Nexus Mods
         if: steps.notes.outcome == 'success'
