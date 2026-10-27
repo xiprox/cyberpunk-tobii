@@ -8,8 +8,9 @@ local Menu = {}
 local TAB = "/tobiiHeadTracking"
 
 -- onChange(section) is called after a value changes; section is "general", "smoothing", "enabled",
--- "autocenter" or "axes" so the caller can push the change where it needs to go.
-function Menu.build(Settings, onChange, actions)
+-- "autocenter" or "axes" so the caller can push the change where it needs to go. version is the
+-- plugin's, or nil when the plugin didn't load.
+function Menu.build(Settings, onChange, actions, version)
     local ns = GetMod("nativeSettings")
     if not ns then
         print("[TobiiHeadTracking] Native Settings not found; settings are only in the CET overlay and settings.json")
@@ -79,7 +80,8 @@ function Menu.build(Settings, onChange, actions)
     -- Getting started -------------------------------------------------------------------------------
     local start = TAB .. "/start"
     ns.addSubcategory(start, "Getting started")
-    ns.addSwitch(start, "Head tracking", "Master switch. Also on a hotkey (CET > Bindings).",
+    local versionNote = version and ("Version " .. version .. ". ") or ""
+    ns.addSwitch(start, "Head tracking", versionNote .. "Master switch. Also on a hotkey (CET > Bindings).",
         s.enabled, d.enabled, set(s, "enabled", "enabled"))
     ns.addButton(start, "Recenter", "Sit how you normally look at the screen, then press. Also on a hotkey.",
         "Recenter", 45, actions.recenter)

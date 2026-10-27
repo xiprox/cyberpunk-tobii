@@ -146,7 +146,7 @@ registerForEvent("onInit", function()
         log("Ready, plugin v" .. version)
     end
 
-    local okMenu, hasMenu = pcall(Menu.build, Settings, onSettingChanged, actions)
+    local okMenu, hasMenu = pcall(Menu.build, Settings, onSettingChanged, actions, mod.live.version)
     mod.hasMenu = okMenu and hasMenu
     if not okMenu then
         log("Couldn't build the settings menu: " .. tostring(hasMenu))
