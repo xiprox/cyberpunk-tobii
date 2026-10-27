@@ -124,10 +124,17 @@ The workflow also uploads each release's zip to Nexus Mods, through Nexus Mods' 
 The action only adds a version to a file the mod page already has, so it needs a one-time setup:
 
 1. On Nexus Mods, create the mod page and upload the first zip by hand.
-2. In the mod page's Files tab, turn on Advanced.
-   The mod's ID and the file's ID show beside the file.
-3. Create an API key in your Nexus Mods account's [API keys settings](https://www.nexusmods.com/settings/api-keys).
-4. In the GitHub repository's Settings, under Secrets and variables > Actions, add the key as the secret `NEXUSMODS_API_KEY`, and the IDs as the variables `NEXUSMODS_MOD_ID` and `NEXUSMODS_FILE_ID`.
+2. On the mod page's Files tab, click Advanced under the file.
+   Its API section shows the File ID and the Unique Mod ID.
+   The Unique Mod ID is the one the upload API takes: the number in the mod page's address, such as `36183` in `/cyberpunk2077/mods/36183`, gets "Mod not found".
+3. At the bottom of your Nexus Mods account's [API keys settings](https://www.nexusmods.com/settings/api-keys), below the keys for other apps, copy your Personal API Key.
+4. Store the key as the repository's secret `NEXUSMODS_API_KEY`, which prompts for it so it never shows on screen:
+
+   ```powershell
+   gh secret set NEXUSMODS_API_KEY
+   ```
+
+5. Store the Unique Mod ID as the variable `NEXUSMODS_MOD_ID` and the File ID as `NEXUSMODS_FILE_ID`, under the repository's Settings > Secrets and variables > Actions > Variables.
 
 From the next release on, the workflow uploads the zip as a new version of that file, with the release notes as its changelog, archives the version before it, and sets the mod page's version.
 Until both variables exist, releases skip Nexus Mods.
