@@ -13,7 +13,9 @@ body:
     id: mod-version
     attributes:
       label: Mod version
-      description: The Head Tracking window in the Cyber Engine Tweaks overlay shows it beside the tracker status.
+      description: >-
+        Settings > Mods > Head Tracking shows it in the description of the Head tracking switch, and
+        the Head Tracking window in the Cyber Engine Tweaks overlay beside the tracker status.
       placeholder: v1.0.0
     validations:
       required: true
