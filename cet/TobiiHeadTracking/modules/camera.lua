@@ -1,10 +1,10 @@
 -- Applies the head offset to the player's first-person camera component.
 --
 -- The component's local transform sits on top of the body/look direction, so offsetting it turns the
--- view without moving the mouse look. The game sometimes rewrites that transform itself (aiming,
--- weapon swaps, getting into a vehicle, scenes, possibly every frame). Each frame we compare what's
--- there with what we wrote last: if it changed, the game's value becomes the new resting pose;
--- if not, we keep the old resting pose so the offset never stacks on itself.
+-- view without moving the mouse look. Something else, such as another mod, can rewrite that transform.
+-- Each frame we compare what's there with what we wrote last: if it's a pose of its own, that becomes
+-- the new resting pose; if our value was left alone or only adjusted, we keep the old resting pose so
+-- the offset never stacks on itself.
 --
 -- Head turns go around a level "up" (the car's, or the world's) rather than the camera's own, which
 -- tilts whenever the view is pitched. That up is measured from where the camera points each frame.
@@ -14,6 +14,7 @@ local Curves = require("modules/curves")
 local Camera = {}
 
 local EPSILON = 1e-4
+local ADJUSTED_RATIO = 2 -- a value this many times closer to ours than to the resting pose came from ours
 local STATS_WINDOW = 300 -- frames per diagnostics window
 local AXIS_SMOOTHING_SECONDS = 0.08
 local MIN_AXIS_UP = 0.2 -- ignore readings tilted more than ~78 degrees; they can't be right
@@ -244,6 +245,30 @@ local function samePosition(p, w)
     return math.abs(p.x - w.x) < EPSILON and math.abs(p.y - w.y) < EPSILON and math.abs(p.z - w.z) < EPSILON
 end
 
+local function angleBetween(a, b)
+    local d = mul(conjugate(a), b)
+    return math.deg(2 * math.asin(math.min(math.sqrt(d.i * d.i + d.j * d.j + d.k * d.k), 1)))
+end
+
+local function distance(a, b)
+    local dx, dy, dz = a.x - b.x, a.y - b.y, a.z - b.z
+    return math.sqrt(dx * dx + dy * dy + dz * dz)
+end
+
+-- Whether the camera still holds what we wrote: untouched, or only adjusted. A writer can blend from
+-- the value it finds, and taking that for a pose of its own would add our offset to the resting pose
+-- again every frame, which spins the view. A pose of its own sits near the old resting pose, or far
+-- from both.
+local function holdsOurRotation(q)
+    return sameRotation(q, written.rot)
+        or angleBetween(q, written.rot) * ADJUSTED_RATIO < angleBetween(q, base.rot)
+end
+
+local function holdsOurPosition(p)
+    return samePosition(p, written.pos)
+        or distance(p, written.pos) * ADJUSTED_RATIO < distance(p, base.pos)
+end
+
 local function countFrame(rotationRewritten, positionRewritten)
     stats.frames = stats.frames + 1
     if rotationRewritten then
@@ -288,10 +313,10 @@ local function applyImpl(offset, dt, opts)
     if applied then
         countFrame(rotationRewritten, positionRewritten)
     end
-    if rotationRewritten then
+    if not applied or not holdsOurRotation(q) then
         base.rot = { i = q.i, j = q.j, k = q.k, r = q.r }
     end
-    if positionRewritten then
+    if not applied or not holdsOurPosition(p) then
         base.pos = { x = p.x, y = p.y, z = p.z }
     end
 
@@ -331,10 +356,10 @@ local function releaseImpl()
     if not cam then
         return
     end
-    if sameRotation(cam:GetLocalOrientation(), written.rot) then
+    if holdsOurRotation(cam:GetLocalOrientation()) then
         cam:SetLocalOrientation(Quaternion.new(base.rot.i, base.rot.j, base.rot.k, base.rot.r))
     end
-    if samePosition(cam:GetLocalPosition(), written.pos) then
+    if holdsOurPosition(cam:GetLocalPosition()) then
         cam:SetLocalPosition(Vector4.new(base.pos.x, base.pos.y, base.pos.z, 1))
     end
 end
