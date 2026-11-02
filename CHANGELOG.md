@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/xiprox/cyberpunk-tobii/compare/v1.1.2...v1.2.0) (2026-11-02)
+
+
+### Features
+
+* **calibration:** press Recenter to put an out-of-place view back on foot ([d7533fe](https://github.com/xiprox/cyberpunk-tobii/commit/d7533feac728f1d28e9c80498dec5907dbea3b7d))
+
+
+### Bug Fixes
+
+* **camera:** the view holds steady when another mod adjusts the camera ([bc7119b](https://github.com/xiprox/cyberpunk-tobii/commit/bc7119ba3fa2a63d5a7deb763e2bd228269c1626))
+
 ## [1.1.2](https://github.com/xiprox/cyberpunk-tobii/compare/v1.1.1...v1.1.2) (2026-10-27)
 
 
