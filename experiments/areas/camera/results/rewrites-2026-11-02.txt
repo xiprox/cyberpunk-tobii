@@ -1,0 +1,72 @@
+
+Head held 5 deg, rule before: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       1 deg/s    0.2 cm  left   1.7 deg   0.2 cm
+game blends the value 50% toward rest a frame       3 deg/s    0.7 cm  left   5.0 deg   0.7 cm
+game blends the value 34% toward rest a frame       5 deg/s    1.4 cm  left   9.7 deg   1.4 cm
+game blends the value 33% toward rest a frame       5 deg/s    1.4 cm  left  10.2 deg   1.4 cm
+game blends the value 10% toward rest a frame      23 deg/s    6.5 cm  left  46.2 deg   6.5 cm
+game blends the value 2% toward rest a frame      178 deg/s   18.1 cm  left   4.5 deg  18.1 cm
+game nudges the value slightly                    300 deg/s   14.9 cm  left 120.0 deg  11.1 cm
+
+Head held 5 deg, rule now: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       1 deg/s    0.2 cm  left   1.7 deg   0.2 cm
+game blends the value 50% toward rest a frame       3 deg/s    0.7 cm  left   5.0 deg   0.7 cm
+game blends the value 34% toward rest a frame       5 deg/s    1.4 cm  left   9.7 deg   1.4 cm
+game blends the value 33% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 10% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 2% toward rest a frame        0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game nudges the value slightly                      0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+
+Head held 15 deg, rule before: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       2 deg/s    0.7 cm  left   5.0 deg   0.7 cm
+game blends the value 50% toward rest a frame       8 deg/s    2.2 cm  left  15.0 deg   2.2 cm
+game blends the value 34% toward rest a frame      15 deg/s    4.4 cm  left  29.4 deg   4.4 cm
+game blends the value 33% toward rest a frame      15 deg/s    4.7 cm  left  30.7 deg   4.7 cm
+game blends the value 10% toward rest a frame     516 deg/s   19.9 cm  left  47.8 deg  10.9 cm
+game blends the value 2% toward rest a frame      889 deg/s   16.2 cm  left  21.8 deg   3.8 cm
+game nudges the value slightly                    900 deg/s   15.7 cm  left   0.5 deg   3.6 cm
+
+Head held 15 deg, rule now: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       2 deg/s    0.7 cm  left   5.0 deg   0.7 cm
+game blends the value 50% toward rest a frame       8 deg/s    2.2 cm  left  15.0 deg   2.2 cm
+game blends the value 34% toward rest a frame      15 deg/s    4.4 cm  left  29.4 deg   4.4 cm
+game blends the value 33% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 10% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 2% toward rest a frame        0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game nudges the value slightly                      0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+
+Head held 30 deg, rule before: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       5 deg/s    1.6 cm  left   9.9 deg   1.6 cm
+game blends the value 50% toward rest a frame      15 deg/s    5.1 cm  left  30.0 deg   5.1 cm
+game blends the value 34% toward rest a frame      30 deg/s   10.7 cm  left  60.3 deg  10.7 cm
+game blends the value 33% toward rest a frame      32 deg/s   11.3 cm  left  63.4 deg  11.3 cm
+game blends the value 10% toward rest a frame    1652 deg/s   18.4 cm  left  64.3 deg   7.6 cm
+game blends the value 2% toward rest a frame     1795 deg/s   19.1 cm  left  10.3 deg   2.4 cm
+game nudges the value slightly                   1800 deg/s   15.8 cm  left   0.0 deg   3.6 cm
+
+Head held 30 deg, rule now: spin, peak position error, left once the game stops
+game writes its own resting pose                    0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 75% toward rest a frame       5 deg/s    1.6 cm  left   9.9 deg   1.6 cm
+game blends the value 50% toward rest a frame      15 deg/s    5.1 cm  left  30.0 deg   5.1 cm
+game blends the value 34% toward rest a frame      30 deg/s   10.7 cm  left  60.3 deg  10.7 cm
+game blends the value 33% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 10% toward rest a frame       0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game blends the value 2% toward rest a frame        0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+game nudges the value slightly                      0 deg/s    0.0 cm  left   0.0 deg   0.0 cm
+
+Head held 15 deg, the game moves to a new pose and stays, rule before: left is how far the view ends up from that pose
+own pose 40 deg pitched away, written once         20 deg/s   22.2 cm  left   0.0 deg   0.0 cm
+own pose 40 deg pitched away, every frame          20 deg/s   22.2 cm  left   0.0 deg   0.0 cm
+own pose 40 deg the way the head turns, once       20 deg/s   21.8 cm  left   0.0 deg   0.0 cm
+own pose 20 deg the way the head turns, once       10 deg/s    0.7 cm  left   0.0 deg   0.0 cm
+
+Head held 15 deg, the game moves to a new pose and stays, rule now: left is how far the view ends up from that pose
+own pose 40 deg pitched away, written once         20 deg/s   22.2 cm  left   0.0 deg   0.0 cm
+own pose 40 deg pitched away, every frame          20 deg/s   22.2 cm  left   0.0 deg   0.0 cm
+own pose 40 deg the way the head turns, once       20 deg/s   21.8 cm  left   0.0 deg   0.0 cm
+own pose 20 deg the way the head turns, once        0 deg/s    0.0 cm  left  20.0 deg   0.7 cm

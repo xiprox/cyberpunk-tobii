@@ -6,7 +6,29 @@ What we found and decided while building Tobii head tracking for Cyberpunk 2077,
 "Replayed" marks a number from a probe in [experiments/](experiments), which runs a JavaScript port of the mod's math on a recorded head or a constructed case, so it shows what the code computes, not what the game draws.
 "User" marks what the user saw in the game: Cyberpunk 2077 2.5, Cyber Engine Tweaks 1.38.0, Native Settings 1.97, and Tobii Stream Engine 4.25.0.3 with a Tobii Eye Tracker 5.
 
-Not yet checked in the game: whether raise/lower and forward/back move the right way, whether the car auto-centering values the mod writes to TweakDB take effect, how often the game rewrites the camera transform (the overlay counts it), and the headrest lean from the passenger seat or on a bike.
+Not yet checked in the game: whether raise/lower and forward/back move the right way, whether the car auto-centering values the mod writes to TweakDB take effect, whether scenes rewrite the camera transform (the overlay counts it), whether a vehicle changes the resting pose, Recenter with the view actually out of place, and the headrest lean from the passenger seat or on a bike.
+
+## 2026-11-02: A value adjusted from ours isn't a new resting pose
+
+A player reported that holstering with B spun the view and carried the head off the body, that a second B stopped it, and that the head stayed out of place until they left the save.
+The mod took any value it hadn't written for a new resting pose, so if something adjusts the value it finds rather than writing its own, the head offset joins the resting pose every frame.
+With the head held 15° turned, a game blending the value 10% toward rest each frame spun the view 516°/s and left it 48° and 11 cm out, and a slight nudge each frame spun it 900°/s (replayed).
+Neither Recenter, which only moved the head center, nor switching off, which wrote the bad pose back, could undo that.
+The game alone didn't reproduce it: with the old code the view didn't spin, and with the new log, putting a weapon away for 8 s and drawing it again wrote the camera on no frame (user).
+Neither did aiming with tracking live, with Pause while aiming off, or sitting in a car with tracking live (user), so the 2026-10-26 entry's claim that aiming writes the camera doesn't hold in 2.5.
+A temporary test mod that blended the camera 10% toward rest each frame while the weapon was away did reproduce it: the view spun and left the resting pose 87° and 21 cm out until a save was loaded (user).
+So another mod is the likely cause of the report, though we don't know which, and if the player has no such mod, the cause is something else and this fix won't help.
+
+A value at least twice as close to what the mod wrote as to the resting pose now counts as adjusted from ours, and the resting pose stays, so those two cases don't spin and leave nothing behind (replayed).
+With the test mod and the head offset at 34°, each value landed 3.3° from ours and 30° from rest, the view held steady, and the resting pose had moved 0.0° and 0.0 cm after 300 frames of writes (user).
+A faster blend, more than a third of the way each frame, still gets taken up, but it settles at no more than about twice the head offset rather than running away (replayed).
+The cost is that a pose written once, close to where the head is looking, waits for its next write: 20° the way a 15° head turned left the view 20° from that pose (replayed).
+Recenter now also puts back the resting pose from when the player was first on foot after loading, so nobody has to leave their save.
+In a vehicle it leaves the pose alone, in case the game holds a different one there.
+On foot that pose is exactly no rotation and no offset (user).
+`TobiiHeadTracking.log` now records the mod's state and each run of writes, the first 30 frames one by one, with how far each value is from ours and from rest, because that distance is what tells the two kinds of write apart.
+CET's log files catch up only on a mod reload or when the game closes: lines from 19:45 weren't in the file until a reload at 19:53 (user).
+Evidence: [rewrites](experiments/areas/camera/results/rewrites-2026-11-02.txt).
 
 ## 2026-10-27: The settings menu shows every option
 
