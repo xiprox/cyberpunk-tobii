@@ -3,6 +3,10 @@
 
 local State = {}
 
+-- The last values read, for the diagnostic log.
+State.upperBody = 0
+State.weaponOut = "unknown"
+
 -- gamePSMVehicle
 local VEHICLE_NONE = 0
 local VEHICLE_COMBAT = 2
@@ -70,6 +74,10 @@ local function getBool(bb, id)
     return ok and value == true
 end
 
+local function weaponInHand(player)
+    return Game.GetTransactionSystem():GetItemInSlot(player, TweakDBID.new("AttachmentSlots.WeaponRight"))
+end
+
 local function check(player, s)
     if not ids then
         cacheIds()
@@ -79,6 +87,10 @@ local function check(player, s)
     if not bb then
         return false, "loading"
     end
+
+    State.upperBody = getInt(bb, ids.upperBody, 0)
+    local okWeapon, weapon = pcall(weaponInHand, player)
+    State.weaponOut = okWeapon and tostring(weapon ~= nil) or "unknown"
 
     if getInt(bb, ids.vitals, 0) == VITALS_DEAD then
         return false, "dead"

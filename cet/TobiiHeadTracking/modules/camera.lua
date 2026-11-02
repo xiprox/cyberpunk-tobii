@@ -10,6 +10,7 @@
 -- tilts whenever the view is pitched. That up is measured from where the camera points each frame.
 
 local Curves = require("modules/curves")
+local Diagnostics = require("modules/diagnostics")
 
 local Camera = {}
 
@@ -57,6 +58,7 @@ local function report(where, err)
     if not reported[where] then
         reported[where] = true
         print("[TobiiHeadTracking] " .. message)
+        Diagnostics.log(message)
     end
 end
 
@@ -273,6 +275,30 @@ local function holdsOurPosition(p)
         or distance(p, written.pos) * ADJUSTED_RATIO < distance(p, base.pos)
 end
 
+local function describeRewrite(q, p, rotationRewritten, positionRewritten, offset)
+    local parts = {}
+    if rotationRewritten then
+        parts[#parts + 1] = string.format("rotation %.2f deg from ours, %.2f from rest (%s)",
+            angleBetween(q, written.rot), angleBetween(q, base.rot),
+            holdsOurRotation(q) and "came from ours" or "a pose of its own")
+    end
+    if positionRewritten then
+        parts[#parts + 1] = string.format("position %.2f cm from ours, %.2f from rest (%s)",
+            distance(p, written.pos) * 100, distance(p, base.pos) * 100,
+            holdsOurPosition(p) and "came from ours" or "a pose of its own")
+    end
+    parts[#parts + 1] = string.format("head offset yaw %.1f pitch %.1f roll %.1f", offset.yaw, offset.pitch, offset.roll)
+    return table.concat(parts, " | ")
+end
+
+local function restingDrift()
+    if not home then
+        return "no resting pose on foot yet"
+    end
+    return string.format("resting pose %.1f deg, %.1f cm from the one on foot",
+        angleBetween(base.rot, home.rot), distance(base.pos, home.pos) * 100)
+end
+
 local function countFrame(rotationRewritten, positionRewritten)
     stats.frames = stats.frames + 1
     if rotationRewritten then
@@ -316,6 +342,11 @@ local function applyImpl(offset, dt, opts)
     local positionRewritten = not applied or not samePosition(p, written.pos)
     if applied then
         countFrame(rotationRewritten, positionRewritten)
+        if rotationRewritten or positionRewritten then
+            Diagnostics.rewrite(describeRewrite(q, p, rotationRewritten, positionRewritten, offset))
+        else
+            Diagnostics.noRewrite(restingDrift)
+        end
     end
     if not applied or not holdsOurRotation(q) then
         base.rot = { i = q.i, j = q.j, k = q.k, r = q.r }
@@ -325,10 +356,16 @@ local function applyImpl(offset, dt, opts)
     end
     if opts.onFoot and not applied and not home then
         home = { rot = base.rot, pos = base.pos }
+        Diagnostics.log(string.format("Resting pose on foot: rotation %.4f %.4f %.4f %.4f, position %.4f %.4f %.4f",
+            home.rot.i, home.rot.j, home.rot.k, home.rot.r, home.pos.x, home.pos.y, home.pos.z))
+    end
+    if not applied then
+        Diagnostics.log("Took the camera back: " .. restingDrift())
     end
     if restoring then
         restoring = false
         if opts.onFoot and home then
+            Diagnostics.log("Recenter restored the resting pose: " .. restingDrift())
             base.rot, base.pos = home.rot, home.pos
         end
     end

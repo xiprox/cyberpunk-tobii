@@ -6,6 +6,7 @@ local Curves = require("modules/curves")
 local Turns = require("modules/turns")
 local Jitter = require("modules/jitter")
 local Camera = require("modules/camera")
+local Diagnostics = require("modules/diagnostics")
 local State = require("modules/state")
 local AutoCenter = require("modules/autocenter")
 local Menu = require("modules/menu")
@@ -32,6 +33,7 @@ local mod = {
 
 local function log(message)
     print("[TobiiHeadTracking] " .. message)
+    Diagnostics.log(message)
 end
 
 -- Log, and show on the HUD when in game.
@@ -251,6 +253,11 @@ registerForEvent("onUpdate", function(dt)
         local okVehicle, mounted = pcall(Game.GetMountedVehicle, player)
         vehicle = okVehicle and mounted or nil
     end
+
+    Diagnostics.track("Camera", active and "active" or ("off, " .. tostring(reason)))
+    Diagnostics.track("Upper body state", State.upperBody)
+    Diagnostics.track("Weapon out", State.weaponOut)
+    Diagnostics.track("In a vehicle", vehicle ~= nil)
 
     local delta = (head and not lost) and Curves.deltas(head, s.center) or nil
 

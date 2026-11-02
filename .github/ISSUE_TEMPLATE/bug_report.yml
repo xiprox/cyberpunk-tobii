@@ -38,5 +38,7 @@ body:
     attributes:
       label: Logs
       description: >-
-        Drag in two files from the game folder: the TobiiHeadTracking log from `red4ext\logs`,
-        and `bin\x64\plugins\cyber_engine_tweaks\scripting.log`.
+        Close the game, so the files are complete, then drag in three files from the game folder:
+        the TobiiHeadTracking log from `red4ext\logs`,
+        `bin\x64\plugins\cyber_engine_tweaks\scripting.log`, and
+        `bin\x64\plugins\cyber_engine_tweaks\mods\TobiiHeadTracking\TobiiHeadTracking.log`.
