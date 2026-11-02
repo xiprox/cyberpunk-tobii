@@ -83,7 +83,7 @@ function Menu.build(Settings, onChange, actions, version)
     local versionNote = version and ("Version " .. version .. ". ") or ""
     ns.addSwitch(start, "Head tracking", versionNote .. "Master switch. Also on a hotkey (CET > Bindings).",
         s.enabled, d.enabled, set(s, "enabled", "enabled"))
-    ns.addButton(start, "Recenter", "Sit how you normally look at the screen, then press. Also on a hotkey.",
+    ns.addButton(start, "Recenter", "Sit how you normally look at the screen, then press. If the view ever ends up out of place on foot, this puts it back. Also on a hotkey.",
         "Recenter", 45, actions.recenter)
     ns.addButton(start, "Calibrate head turns",
         "Stops the view rising, dipping or sliding as you turn your head. Recenter first. Press, close the menu, and when told, slowly turn your head fully left and right a few times for 15 seconds. Also on a hotkey.",

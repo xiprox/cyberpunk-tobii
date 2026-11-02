@@ -52,6 +52,7 @@ Calibration records how much at each angle, and the mod subtracts it.
 The settings are in Settings > Mods > Head Tracking, and the mod saves them to `settings.json` in its CET folder.
 You bind the hotkeys, for toggling head tracking, recentering, calibrating head turns, and holding to pause, in the CET overlay under Bindings.
 The CET overlay also shows the tracker's status and the mod's version, with your head pose and the camera's offset under Diagnostics.
+If the view ever ends up out of place on foot, Recenter puts it back.
 
 | Section | Options |
 | --- | --- |

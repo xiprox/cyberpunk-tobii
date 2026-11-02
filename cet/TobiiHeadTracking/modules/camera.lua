@@ -29,6 +29,10 @@ local written = { pos = { x = 0, y = 0, z = 0 }, rot = { i = 0, j = 0, k = 0, r 
 local applied = false
 local reported = {}
 
+-- The resting pose on foot when the player was first loaded in, which Camera.restore puts back.
+local home = nil
+local restoring = false
+
 -- Offset rotation the camera is showing right now (and the one before it), and the axis head turns
 -- go around, in the camera's own frame without our offset.
 local inEffect = IDENTITY
@@ -319,6 +323,15 @@ local function applyImpl(offset, dt, opts)
     if not applied or not holdsOurPosition(p) then
         base.pos = { x = p.x, y = p.y, z = p.z }
     end
+    if opts.onFoot and not applied and not home then
+        home = { rot = base.rot, pos = base.pos }
+    end
+    if restoring then
+        restoring = false
+        if opts.onFoot and home then
+            base.rot, base.pos = home.rot, home.pos
+        end
+    end
 
     local o = offsetRotation(offset, turnAxis)
     local r = mul(base.rot, o)
@@ -340,7 +353,7 @@ local function clearEffect()
 end
 
 -- opts: { level = reference for updateAxis, neck = see neckShift (nil = turn on the spot),
--- leanFollows = see leanShift }.
+-- leanFollows = see leanShift, onFoot = whether the player is on foot }.
 function Camera.apply(offset, dt, opts)
     local ok, err = pcall(applyImpl, offset, dt, opts)
     if not ok then
@@ -380,6 +393,14 @@ end
 function Camera.forget()
     applied = false
     clearEffect()
+    home = nil
+    restoring = false
+end
+
+-- The next time the camera moves on foot, go back to the first resting pose, however far the current
+-- one has wandered. In a vehicle the resting pose may differ, so nothing changes there.
+function Camera.restore()
+    restoring = true
 end
 
 return Camera

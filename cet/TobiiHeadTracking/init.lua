@@ -48,6 +48,7 @@ local function applySmoothing()
 end
 
 local function recenter()
+    Camera.restore()
     if not mod.latestHead then
         log("Can't recenter: the tracker can't see your head")
         return
@@ -325,7 +326,7 @@ registerForEvent("onUpdate", function(dt)
                 end
             end
         end
-        Camera.apply(offset, dt, { level = reference, neck = neck, leanFollows = s.leanFollowsView })
+        Camera.apply(offset, dt, { level = reference, neck = neck, leanFollows = s.leanFollowsView, onFoot = vehicle == nil })
         mod.live.offset = offset
     else
         Camera.release()
